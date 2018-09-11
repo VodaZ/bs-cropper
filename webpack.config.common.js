@@ -7,7 +7,7 @@ import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import config from 'config';
 
 // trace which loader is deprecated
-// feel free to remove that if you don't need this feature
+// feel free to removeSample that if you don't need this feature
 process.traceDeprecation = false;
 
 // Environment variable injection
