@@ -85,6 +85,7 @@
     "cropperjs": "^1.4.1",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
+    "localStorage": "^1.0.3",
     "prop-types": "^15.6.0",
     "ramda": "^0.25.0",
     "react": "^16.2.0",

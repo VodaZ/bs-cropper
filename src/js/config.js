@@ -1,34 +1,32 @@
 export const config = {
   mainImage: {
     style: {
-      width: '66%',
-      maxHeight: '100%',
+      width: '100%',
+      height: '100%',
     },
   },
-  cropRatio: 10 / 3,
+  cropRatio: 2/1,
   canvas: {
     style: {
       width: '100%',
     },
   },
   export: {
-    sampleBaseXSize: 1000,
-    xOffset: 100,
-    yOffset: 10,
-    spacing: 10,
+    sampleBaseXSize: 500,
+    legendSpacing: 5,
     margin: 10,
     fontSize: 30,
-    samplesOnOneImage: 5,
+    headerFontSize: 40,
+    samplesOnOneImage: 3,
   },
 };
 
 export const {
   sampleBaseXSize,
   margin,
-  spacing,
-  xOffset,
-  yOffset,
+  legendSpacing,
   fontSize,
+  headerFontSize,
   samplesOnOneImage,
 } = config.export;
 
@@ -38,6 +36,7 @@ export const sampleSize = {
 };
 
 export const exportSize = {
-  x: (2 * margin) + sampleSize.x + xOffset,
-  y: (2 * margin) + (samplesOnOneImage * sampleSize.y) + ((samplesOnOneImage - 1) * spacing),
+  x: (2 * margin) + sampleSize.x,
+  y: ((3 * margin) + (((2 * legendSpacing) + fontSize + sampleSize.y) *
+    samplesOnOneImage) + headerFontSize),
 };

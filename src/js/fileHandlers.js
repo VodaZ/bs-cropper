@@ -1,7 +1,14 @@
 import fileDownload from 'react-file-download';
 import { append, reduce } from 'ramda';
 
-import { exportSize, fontSize, margin, sampleSize, spacing, xOffset, yOffset } from './config';
+import {
+  exportSize,
+  fontSize,
+  headerFontSize,
+  legendSpacing,
+  margin,
+  sampleSize,
+} from './config';
 
 
 function dataURLToBlob(dataURL) {
@@ -39,16 +46,17 @@ function sampleToFile(
     sample,
   },
 ) {
-  const promis = new Promise((resolve) => {
+  const promise = new Promise((resolve) => {
     const context = canvas.getContext('2d');
     const { url, name } = sample;
     const image = new window.Image();
 
-    const sampleXOfffset = xOffset + margin;
-    const sampleYOffset = yOffset + (sampleSize.y * index) + (spacing * (index - 1)) + margin;
-    const textYOffset = sampleYOffset + ((fontSize + sampleSize.y) / 2);
+    const sampleXOfffset = margin;
+    const sampleYOffset = (((sampleSize.y + (2 * legendSpacing) + fontSize) * index) +
+      (2 * margin) + headerFontSize);
+    const textYOffset = sampleYOffset + sampleSize.y + fontSize;
 
-    context.fillText(name, margin, textYOffset);
+    context.fillText(name, sampleXOfffset, textYOffset);
 
     image.setAttribute('src', url);
     image.addEventListener('load', () => {
@@ -59,20 +67,23 @@ function sampleToFile(
 
   return {
     canvas,
-    promises: append(promis, promises),
+    promises: append(promise, promises),
   };
 }
 
-export function samplesToFile(samples) {
+export const samplesToFile = (fileName) => ({ index, samples }) => {
   const canvas = document.createElement('canvas');
   canvas.setAttribute('width', exportSize.x);
   canvas.setAttribute('height', exportSize.y);
 
   const context = canvas.getContext('2d');
-  context.font = `${fontSize}px Arial`;
   context.fillStyle = 'white';
   context.fillRect(0, 0, exportSize.x, exportSize.y);
+
   context.fillStyle = 'black';
+  context.font = `${headerFontSize}px Arial`;
+  context.fillText(`${fileName} ${index + 1}`, margin, margin + headerFontSize);
+  context.font = `${fontSize}px Arial`;
 
   const result = reduce(sampleToFile, {
     canvas,
@@ -84,7 +95,8 @@ export function samplesToFile(samples) {
     .then(() => {
       const exportUrl = result.canvas.toDataURL('image/jpeg', 1);
       const blob = dataURLToBlob(exportUrl);
-      const file = new File([blob], 'file.jpg');
-      fileDownload(file, 'file.jpg');
+      const filename = `${fileName}-${index + 1}.jpg`;
+      const file = new File([blob], filename);
+      fileDownload(file, filename);
     })
-}
+};
