@@ -82,7 +82,7 @@ export const samplesToFile = (fileName) => ({ index, samples }) => {
 
   context.fillStyle = 'black';
   context.font = `${headerFontSize}px Arial`;
-  context.fillText(`${fileName} ${index + 1}`, margin, margin + headerFontSize);
+  context.fillText(`${fileName}`, margin, margin + headerFontSize);
   context.font = `${fontSize}px Arial`;
 
   const result = reduce(sampleToFile, {

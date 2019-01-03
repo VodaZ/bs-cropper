@@ -5,7 +5,7 @@ export const config = {
       height: '100%',
     },
   },
-  cropRatio: 2/1,
+  cropRatio: 4/1,
   canvas: {
     style: {
       width: '100%',
@@ -17,7 +17,7 @@ export const config = {
     margin: 10,
     fontSize: 30,
     headerFontSize: 40,
-    samplesOnOneImage: 3,
+    samplesOnOneImage: 4,
   },
 };
 

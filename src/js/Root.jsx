@@ -124,7 +124,11 @@ export default class Root extends Component {
 
   sort() {
     const { samples } = this.state;
-    const newSamples = sort((a, b) => a.name.localeCompare(b.name), samples);
+
+    // const sorter = (a, b) => a.name.localeCompare(b.name);
+    const sorter = (a, b) => parseInt(a.name, 10) - parseInt(b.name, 10);
+
+    const newSamples = sort(sorter, samples);
 
     this.setState({
       samples: newSamples,
